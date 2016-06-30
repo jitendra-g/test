@@ -56,6 +56,7 @@ class VideoCell: UICollectionViewCell {
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = UIColor.blueColor()
+        imageView.image = UIImage(named: "taylor_swift_blank_space")
         return imageView
     }()
     
@@ -66,15 +67,23 @@ class VideoCell: UICollectionViewCell {
     }()
     
     let sepratorView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.backgroundColor = UIColor.blackColor()
         return view
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.backgroundColor = UIColor.brownColor()
+        label.backgroundColor = UIColor.purpleColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let subTitleTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = UIColor.redColor()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
     }()
     
     func setupViews() {
@@ -82,17 +91,36 @@ class VideoCell: UICollectionViewCell {
         addSubview(sepratorView)
         addSubview(profileImage)
         addSubview(titleLabel)
+        addSubview(subTitleTextView)
         
+        //Horizontal Constraints
         addConstraintsWithFormat("H:|-16-[v0]-16-|", views: thumbnailImageView)
-        addConstraintsWithFormat("H:|-16-[v0(44)]-8-[v1]-16-|", views: profileImage, titleLabel)
         
+        addConstraintsWithFormat("H:|-16-[v0(44)]", views: profileImage)
         addConstraintsWithFormat("H:|[v0]|", views: sepratorView)
         
         //Verticle Constraints
         addConstraintsWithFormat("V:|-16-[v0]-8-[v1(44)]-16-[v2(1)]|", views: thumbnailImageView, profileImage, sepratorView)
-        addConstraintsWithFormat("V:[v0]-8-[v1(22)]", views: thumbnailImageView, titleLabel)
         
-    
+        //top constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Top, relatedBy: .Equal, toItem: thumbnailImageView, attribute: .Bottom, multiplier: 1, constant: 8))
+        //left constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Left, relatedBy: .Equal, toItem: profileImage, attribute: .Right, multiplier: 1, constant: 8))
+        //right constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Right, relatedBy: .Equal, toItem: thumbnailImageView, attribute: .Right, multiplier: 1, constant: 0))
+        //height constraint
+        addConstraint(NSLayoutConstraint(item: titleLabel, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 0, constant: 20))
+        
+        
+        //top constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .Top, relatedBy: .Equal, toItem: titleLabel, attribute: .Bottom, multiplier: 1, constant: 3))
+        //left constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .Left, relatedBy: .Equal, toItem: profileImage, attribute: .Right, multiplier: 1, constant: 8))
+        //right constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .Right, relatedBy: .Equal, toItem: thumbnailImageView, attribute: .Right, multiplier: 1, constant: 0))
+        //height constraint
+        addConstraint(NSLayoutConstraint(item: subTitleTextView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 0, constant: 20))
+        
         
         //self.backgroundColor = UIColor.redColor()
     }
